@@ -36,7 +36,7 @@ extern int pqcrystals_kyber1024_ref_dec(uint8_t *ss, const uint8_t *ct, const ui
 
 #if defined(OQS_ENABLE_KEM_kyber_1024_avx2)
 extern int pqcrystals_kyber1024_avx2_keypair(uint8_t *pk, uint8_t *sk);
-extern int pqcrystals_kyber1024_avx2_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+extern int pqcrystals_kyber1024_avx2_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 extern int pqcrystals_kyber1024_avx2_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 #endif
 
