@@ -58,21 +58,21 @@ set(API_TEST_DEPS oqs ${LIBM})
 add_executable(example_kem example_kem.c)
 target_link_libraries(example_kem PRIVATE ${API_TEST_DEPS})
 
-add_executable(kat_kem kat_kem.c)
-target_link_libraries(kat_kem PRIVATE ${API_TEST_DEPS})
-
-add_executable(test_kem test_kem.c)
-if((CMAKE_C_COMPILER_ID MATCHES "Clang") OR (CMAKE_C_COMPILER_ID STREQUAL "GNU"))
-    target_link_libraries(test_kem PRIVATE ${API_TEST_DEPS} Threads::Threads)
-else ()
-    target_link_libraries(test_kem PRIVATE ${API_TEST_DEPS})
-endif()
-
-add_executable(test_kem_mem test_kem_mem.c)
-target_link_libraries(test_kem_mem PRIVATE ${API_TEST_DEPS})
-
-add_executable(speed_kem speed_kem.c)
-target_link_libraries(speed_kem PRIVATE ${API_TEST_DEPS})
+# add_executable(kat_kem kat_kem.c)
+# target_link_libraries(kat_kem PRIVATE ${API_TEST_DEPS})
+#
+# add_executable(test_kem test_kem.c)
+# if((CMAKE_C_COMPILER_ID MATCHES "Clang") OR (CMAKE_C_COMPILER_ID STREQUAL "GNU"))
+#     target_link_libraries(test_kem PRIVATE ${API_TEST_DEPS} Threads::Threads)
+# else ()
+#     target_link_libraries(test_kem PRIVATE ${API_TEST_DEPS})
+# endif()
+#
+# add_executable(test_kem_mem test_kem_mem.c)
+# target_link_libraries(test_kem_mem PRIVATE ${API_TEST_DEPS})
+#
+# add_executable(speed_kem speed_kem.c)
+# target_link_libraries(speed_kem PRIVATE ${API_TEST_DEPS})
 
 # SIG API tests
 add_executable(example_sig example_sig.c)
@@ -104,8 +104,8 @@ if(OQS_ENABLE_TEST_CONSTANT_TIME AND NOT OQS_DEBUG_BUILD)
 endif()
 
 # Record compile options -- from target speed_kem - don't set any options only for speed_kem!
-get_property(OQS_COMPILE_OPTIONS TARGET speed_kem PROPERTY COMPILE_OPTIONS)
-add_definitions(-DOQS_COMPILE_OPTIONS="[${OQS_COMPILE_OPTIONS}]")
+# get_property(OQS_COMPILE_OPTIONS TARGET speed_kem PROPERTY COMPILE_OPTIONS)
+# add_definitions(-DOQS_COMPILE_OPTIONS="[${OQS_COMPILE_OPTIONS}]")
 
 # TODO: Get CMake to find python.
 # and set PATH variable in Windows

@@ -60,7 +60,7 @@ int pqcrystals_kyber768_90s_ref_dec(uint8_t *ss, const uint8_t *ct, const uint8_
 #define pqcrystals_kyber1024_ref_BYTES pqcrystals_kyber1024_BYTES
 
 int pqcrystals_kyber1024_ref_keypair(uint8_t *pk, uint8_t *sk);
-int pqcrystals_kyber1024_ref_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+int pqcrystals_kyber1024_ref_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 int pqcrystals_kyber1024_ref_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 
 #define pqcrystals_kyber1024_90s_ref_SECRETKEYBYTES pqcrystals_kyber1024_SECRETKEYBYTES

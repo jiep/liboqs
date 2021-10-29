@@ -787,11 +787,11 @@ OQS_API OQS_STATUS OQS_KEM_keypair(const OQS_KEM *kem, uint8_t *public_key, uint
 	}
 }
 
-OQS_API OQS_STATUS OQS_KEM_encaps(const OQS_KEM *kem, uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key) {
+OQS_API OQS_STATUS OQS_KEM_encaps(const OQS_KEM *kem, uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins) {
 	if (kem == NULL) {
 		return OQS_ERROR;
 	} else {
-		return kem->encaps(ciphertext, shared_secret, public_key);
+		return kem->encaps(ciphertext, shared_secret, public_key, coins);
 	}
 }
 
