@@ -31,12 +31,12 @@ OQS_KEM *OQS_KEM_kyber_768_new() {
 }
 
 extern int pqcrystals_kyber768_ref_keypair(uint8_t *pk, uint8_t *sk);
-extern int pqcrystals_kyber768_ref_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+extern int pqcrystals_kyber768_ref_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 extern int pqcrystals_kyber768_ref_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 
 #if defined(OQS_ENABLE_KEM_kyber_768_avx2)
 extern int pqcrystals_kyber768_avx2_keypair(uint8_t *pk, uint8_t *sk);
-extern int pqcrystals_kyber768_avx2_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+extern int pqcrystals_kyber768_avx2_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 extern int pqcrystals_kyber768_avx2_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 #endif
 
@@ -56,19 +56,19 @@ OQS_API OQS_STATUS OQS_KEM_kyber_768_keypair(uint8_t *public_key, uint8_t *secre
 #endif
 }
 
-OQS_API OQS_STATUS OQS_KEM_kyber_768_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key) {
+OQS_API OQS_STATUS OQS_KEM_kyber_768_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins) {
 #if defined(OQS_ENABLE_KEM_kyber_768_avx2)
 #if defined(OQS_DIST_BUILD)
 	if (OQS_CPU_has_extension(OQS_CPU_EXT_AVX2) && OQS_CPU_has_extension(OQS_CPU_EXT_BMI2) && OQS_CPU_has_extension(OQS_CPU_EXT_POPCNT)) {
 #endif /* OQS_DIST_BUILD */
-		return (OQS_STATUS) pqcrystals_kyber768_avx2_enc(ciphertext, shared_secret, public_key);
+		return (OQS_STATUS) pqcrystals_kyber768_avx2_enc(ciphertext, shared_secret, public_key, coins);
 #if defined(OQS_DIST_BUILD)
 	} else {
-		return (OQS_STATUS) pqcrystals_kyber768_ref_enc(ciphertext, shared_secret, public_key);
+		return (OQS_STATUS) pqcrystals_kyber768_ref_enc(ciphertext, shared_secret, public_key, coins);
 	}
 #endif /* OQS_DIST_BUILD */
 #else
-	return (OQS_STATUS) pqcrystals_kyber768_ref_enc(ciphertext, shared_secret, public_key);
+	return (OQS_STATUS) pqcrystals_kyber768_ref_enc(ciphertext, shared_secret, public_key, coins);
 #endif
 }
 
