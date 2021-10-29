@@ -14,7 +14,7 @@
 #define pqcrystals_kyber512_avx2_BYTES pqcrystals_kyber512_BYTES
 
 int pqcrystals_kyber512_avx2_keypair(uint8_t *pk, uint8_t *sk);
-int pqcrystals_kyber512_avx2_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+int pqcrystals_kyber512_avx2_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 int pqcrystals_kyber512_avx2_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 
 #define pqcrystals_kyber512_90s_avx2_SECRETKEYBYTES pqcrystals_kyber512_SECRETKEYBYTES

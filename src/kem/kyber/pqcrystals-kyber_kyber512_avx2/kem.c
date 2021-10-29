@@ -1,6 +1,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+#include <string.h>
+
 #include "params.h"
 #include "kem.h"
 #include "indcpa.h"
@@ -49,13 +51,15 @@ int crypto_kem_keypair(uint8_t pk[KYBER_PUBLICKEYBYTES],
 **************************************************/
 int crypto_kem_enc(uint8_t ct[KYBER_CIPHERTEXTBYTES],
                    uint8_t ss[KYBER_SSBYTES],
-                   const uint8_t pk[KYBER_PUBLICKEYBYTES])
+                   const uint8_t pk[KYBER_PUBLICKEYBYTES],
+                   const uint8_t coins[KYBER_SYMBYTES])
 {
   uint8_t buf[2*KYBER_SYMBYTES];
   /* Will contain key, coins */
   uint8_t kr[2*KYBER_SYMBYTES];
 
-  randombytes(buf, KYBER_SYMBYTES);
+  memcpy(buf, coins, KYBER_SYMBYTES);
+  memcpy(buf+KYBER_SYMBYTES, coins, KYBER_SYMBYTES);
   /* Don't release system RNG output */
   hash_h(buf, buf, KYBER_SYMBYTES);
 
