@@ -46,9 +46,10 @@ OQS_API OQS_STATUS OQS_KEM_ntru_hps4096821_decaps(uint8_t *shared_secret, const 
 #define OQS_KEM_ntru_hrss701_length_secret_key 1450
 #define OQS_KEM_ntru_hrss701_length_ciphertext 1138
 #define OQS_KEM_ntru_hrss701_length_shared_secret 32
+#define OQS_KEM_ntru_hrss701_length_coins 1400
 OQS_KEM *OQS_KEM_ntru_hrss701_new(void);
 OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_keypair(uint8_t *public_key, uint8_t *secret_key);
-OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key);
+OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins);
 OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_decaps(uint8_t *shared_secret, const uint8_t *ciphertext, const uint8_t *secret_key);
 #endif
 

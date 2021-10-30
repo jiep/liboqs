@@ -22,6 +22,7 @@ OQS_KEM *OQS_KEM_ntru_hrss701_new() {
 	kem->length_secret_key = OQS_KEM_ntru_hrss701_length_secret_key;
 	kem->length_ciphertext = OQS_KEM_ntru_hrss701_length_ciphertext;
 	kem->length_shared_secret = OQS_KEM_ntru_hrss701_length_shared_secret;
+	kem->length_coins = OQS_KEM_ntru_hrss701_length_coins;
 
 	kem->keypair = OQS_KEM_ntru_hrss701_keypair;
 	kem->encaps = OQS_KEM_ntru_hrss701_encaps;
@@ -31,12 +32,12 @@ OQS_KEM *OQS_KEM_ntru_hrss701_new() {
 }
 
 extern int PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
-extern int PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+extern int PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 extern int PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 
 #if defined(OQS_ENABLE_KEM_ntru_hrss701_avx2)
 extern int PQCLEAN_NTRUHRSS701_AVX2_crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
-extern int PQCLEAN_NTRUHRSS701_AVX2_crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+extern int PQCLEAN_NTRUHRSS701_AVX2_crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 extern int PQCLEAN_NTRUHRSS701_AVX2_crypto_kem_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 #endif
 
@@ -56,19 +57,19 @@ OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_keypair(uint8_t *public_key, uint8_t *se
 #endif
 }
 
-OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key) {
+OQS_API OQS_STATUS OQS_KEM_ntru_hrss701_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins) {
 #if defined(OQS_ENABLE_KEM_ntru_hrss701_avx2)
 #if defined(OQS_DIST_BUILD)
 	if (OQS_CPU_has_extension(OQS_CPU_EXT_AVX2) && OQS_CPU_has_extension(OQS_CPU_EXT_BMI2)) {
 #endif /* OQS_DIST_BUILD */
-		return (OQS_STATUS) PQCLEAN_NTRUHRSS701_AVX2_crypto_kem_enc(ciphertext, shared_secret, public_key);
+		return (OQS_STATUS) PQCLEAN_NTRUHRSS701_AVX2_crypto_kem_enc(ciphertext, shared_secret, public_key, coins);
 #if defined(OQS_DIST_BUILD)
 	} else {
-		return (OQS_STATUS) PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_enc(ciphertext, shared_secret, public_key);
+		return (OQS_STATUS) PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_enc(ciphertext, shared_secret, public_key, coins);
 	}
 #endif /* OQS_DIST_BUILD */
 #else
-	return (OQS_STATUS) PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_enc(ciphertext, shared_secret, public_key);
+	return (OQS_STATUS) PQCLEAN_NTRUHRSS701_CLEAN_crypto_kem_enc(ciphertext, shared_secret, public_key, coins);
 #endif
 }
 
