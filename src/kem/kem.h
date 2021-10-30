@@ -211,6 +211,8 @@ typedef struct OQS_KEM {
 	/** The (maximum) length, in bytes, of shared secrets for this KEM. */
 	size_t length_shared_secret;
 
+	size_t length_coins;
+
 	/**
 	 * Keypair generation algorithm.
 	 *

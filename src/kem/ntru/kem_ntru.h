@@ -10,6 +10,7 @@
 #define OQS_KEM_ntru_hps2048509_length_secret_key 935
 #define OQS_KEM_ntru_hps2048509_length_ciphertext 699
 #define OQS_KEM_ntru_hps2048509_length_shared_secret 32
+#define OQS_KEM_ntru_hps2048509_length_coins 2413
 OQS_KEM *OQS_KEM_ntru_hps2048509_new(void);
 OQS_API OQS_STATUS OQS_KEM_ntru_hps2048509_keypair(uint8_t *public_key, uint8_t *secret_key);
 OQS_API OQS_STATUS OQS_KEM_ntru_hps2048509_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins);

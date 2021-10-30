@@ -58,7 +58,7 @@ static OQS_STATUS example_heap(void) {
   ciphertext2 = malloc(kem->length_ciphertext);
 	shared_secret_e = malloc(kem->length_shared_secret);
 	shared_secret_d = malloc(kem->length_shared_secret);
-  coins = malloc(kem->length_shared_secret);
+  coins = malloc(kem->length_coins);
 	if ((public_key == NULL) || (secret_key == NULL) || (ciphertext == NULL) ||
 	        (shared_secret_e == NULL) || (shared_secret_d == NULL)) {
 		fprintf(stderr, "ERROR: malloc failed!\n");
@@ -77,9 +77,9 @@ static OQS_STATUS example_heap(void) {
 
 		return OQS_ERROR;
 	}
-  OQS_randombytes(coins, kem->length_shared_secret);
+  OQS_randombytes(coins, kem->length_coins);
   printf("coins: ");
-  print_hex(coins, kem->length_shared_secret);
+  print_hex(coins, kem->length_coins);
   rc = OQS_KEM_encaps(kem, ciphertext, shared_secret_e, public_key, coins);
   rc = OQS_KEM_encaps(kem, ciphertext2, shared_secret_e, public_key, coins);
   printf("ciphertext:  ");
