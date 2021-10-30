@@ -34,7 +34,7 @@ OQS_API OQS_STATUS OQS_KEM_saber_saber_decaps(uint8_t *shared_secret, const uint
 #define OQS_KEM_saber_firesaber_length_shared_secret 32
 OQS_KEM *OQS_KEM_saber_firesaber_new(void);
 OQS_API OQS_STATUS OQS_KEM_saber_firesaber_keypair(uint8_t *public_key, uint8_t *secret_key);
-OQS_API OQS_STATUS OQS_KEM_saber_firesaber_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key);
+OQS_API OQS_STATUS OQS_KEM_saber_firesaber_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins);
 OQS_API OQS_STATUS OQS_KEM_saber_firesaber_decaps(uint8_t *shared_secret, const uint8_t *ciphertext, const uint8_t *secret_key);
 #endif
 
