@@ -37,7 +37,7 @@ extern int PQCLEAN_NTRUHPS2048509_CLEAN_crypto_kem_dec(uint8_t *ss, const uint8_
 
 #if defined(OQS_ENABLE_KEM_ntru_hps2048509_avx2)
 extern int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
-extern int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk);
+extern int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *ct, uint8_t *ss, const uint8_t *pk, const uint8_t *coins);
 extern int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_dec(uint8_t *ss, const uint8_t *ct, const uint8_t *sk);
 #endif
 
