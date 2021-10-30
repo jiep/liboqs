@@ -19,6 +19,13 @@ void cleanup_heap(uint8_t *secret_key, uint8_t *shared_secret_e,
                   uint8_t *shared_secret_d, uint8_t *public_key,
                   uint8_t *ciphertext, OQS_KEM *kem);
 
+void print_hex(const uint8_t *bytes, size_t length) {
+  for(size_t i = 0; i < length; i++){
+    printf("%02x", bytes[i]);
+  }
+  printf("\n");
+}
+
 /* This function gives an example of the operations performed by both
  * the decapsulator and the encapsulator in a single KEM session,
  * allocating variables dynamically on the heap and calling the generic
@@ -32,7 +39,8 @@ static OQS_STATUS example_heap(void) {
 	OQS_KEM *kem = NULL;
 	uint8_t *public_key = NULL;
 	uint8_t *secret_key = NULL;
-	uint8_t *ciphertext = NULL;
+  uint8_t *ciphertext = NULL;
+  uint8_t *ciphertext2 = NULL;
 	uint8_t *shared_secret_e = NULL;
 	uint8_t *shared_secret_d = NULL;
   uint8_t *coins = NULL;
@@ -46,7 +54,8 @@ static OQS_STATUS example_heap(void) {
 
 	public_key = malloc(kem->length_public_key);
 	secret_key = malloc(kem->length_secret_key);
-	ciphertext = malloc(kem->length_ciphertext);
+  ciphertext = malloc(kem->length_ciphertext);
+  ciphertext2 = malloc(kem->length_ciphertext);
 	shared_secret_e = malloc(kem->length_shared_secret);
 	shared_secret_d = malloc(kem->length_shared_secret);
   coins = malloc(kem->length_shared_secret);
@@ -69,7 +78,14 @@ static OQS_STATUS example_heap(void) {
 		return OQS_ERROR;
 	}
   OQS_randombytes(coins, kem->length_shared_secret);
-	rc = OQS_KEM_encaps(kem, ciphertext, shared_secret_e, public_key, coins);
+  printf("coins: ");
+  print_hex(coins, kem->length_shared_secret);
+  rc = OQS_KEM_encaps(kem, ciphertext, shared_secret_e, public_key, coins);
+  rc = OQS_KEM_encaps(kem, ciphertext2, shared_secret_e, public_key, coins);
+  printf("ciphertext:  ");
+  print_hex(ciphertext, kem->length_shared_secret);
+  printf("ciphertext2: ");
+  print_hex(ciphertext2, kem->length_shared_secret);
 	if (rc != OQS_SUCCESS) {
 		fprintf(stderr, "ERROR: OQS_KEM_encaps failed!\n");
 		cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,

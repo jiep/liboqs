@@ -8,7 +8,6 @@
 #include <stdint.h>
 #include <string.h>
 
-
 int PQCLEAN_LIGHTSABER_CLEAN_crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
     size_t i;
 
