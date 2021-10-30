@@ -6,6 +6,7 @@
 #include "verify.h"
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 
 
 int PQCLEAN_SABER_CLEAN_crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
@@ -23,12 +24,12 @@ int PQCLEAN_SABER_CLEAN_crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
     return (0);
 }
 
-int PQCLEAN_SABER_CLEAN_crypto_kem_enc(uint8_t *c, uint8_t *k, const uint8_t *pk) {
+int PQCLEAN_SABER_CLEAN_crypto_kem_enc(uint8_t *c, uint8_t *k, const uint8_t *pk, const uint8_t *coins) {
 
     uint8_t kr[64]; // Will contain key, coins
     uint8_t buf[64];
 
-    randombytes(buf, 32);
+    memcpy(buf, coins, 32);
 
     sha3_256(buf, buf, 32); // BUF[0:31] <-- random message (will be used as the key for client) Note: hash doesnot release system RNG output
 
