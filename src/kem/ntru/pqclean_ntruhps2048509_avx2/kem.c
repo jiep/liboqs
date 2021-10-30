@@ -6,6 +6,10 @@
 #include "randombytes.h"
 #include "sample.h"
 
+#include <string.h>
+
+#include <stdio.h>
+
 // API FUNCTIONS
 int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
     uint8_t seed[NTRU_SAMPLE_FG_BYTES];
@@ -18,12 +22,13 @@ int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
     return 0;
 }
 
-int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *c, uint8_t *k, const uint8_t *pk) {
+int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *c, uint8_t *k, const uint8_t *pk, const uint8_t *coins) {
     poly r, m;
     uint8_t rm[NTRU_OWCPA_MSGBYTES];
     uint8_t rm_seed[NTRU_SAMPLE_RM_BYTES];
 
-    randombytes(rm_seed, NTRU_SAMPLE_RM_BYTES);
+    memcpy(rm_seed, coins, NTRU_SAMPLE_RM_BYTES);
+    printf("NTRU_SAMPLE_RM_BYTES: %d\n", NTRU_SAMPLE_RM_BYTES);
 
     PQCLEAN_NTRUHPS2048509_AVX2_sample_rm(&r, &m, rm_seed);
 

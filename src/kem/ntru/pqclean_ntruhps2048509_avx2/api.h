@@ -12,7 +12,7 @@
 
 int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_keypair(uint8_t *pk, uint8_t *sk);
 
-int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *c, uint8_t *k, const uint8_t *pk);
+int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *c, uint8_t *k, const uint8_t *pk, const uint8_t *coins);
 
 int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_dec(uint8_t *k, const uint8_t *c, const uint8_t *sk);
 
