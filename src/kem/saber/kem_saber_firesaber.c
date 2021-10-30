@@ -22,6 +22,7 @@ OQS_KEM *OQS_KEM_saber_firesaber_new() {
 	kem->length_secret_key = OQS_KEM_saber_firesaber_length_secret_key;
 	kem->length_ciphertext = OQS_KEM_saber_firesaber_length_ciphertext;
 	kem->length_shared_secret = OQS_KEM_saber_firesaber_length_shared_secret;
+	kem->length_coins = OQS_KEM_saber_firesaber_length_coins;
 
 	kem->keypair = OQS_KEM_saber_firesaber_keypair;
 	kem->encaps = OQS_KEM_saber_firesaber_encaps;
