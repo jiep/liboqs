@@ -254,6 +254,8 @@ typedef struct OQS_KEM {
 	 */
 	OQS_STATUS (*decaps)(uint8_t *shared_secret, const uint8_t *ciphertext, const uint8_t *secret_key);
 
+	void (*gen_e)(uint8_t *e);
+
 } OQS_KEM;
 
 /**

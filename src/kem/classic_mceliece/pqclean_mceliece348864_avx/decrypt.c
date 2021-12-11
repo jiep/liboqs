@@ -11,8 +11,6 @@
 #include "params.h"
 #include "util.h"
 
-#include <stdio.h>
-
 static void scaling(vec256 out[][GFBITS], vec256 inv[][GFBITS], const unsigned char *sk, vec256 *recv) {
     int i, j;
 
@@ -231,4 +229,3 @@ int PQCLEAN_MCELIECE348864_AVX_decrypt(unsigned char *e, const unsigned char *sk
 
     return 1 - (check_synd & check_weight);
 }
-
