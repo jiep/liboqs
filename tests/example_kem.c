@@ -46,9 +46,9 @@ static OQS_STATUS example_heap(void) {
   uint8_t *shared_secret_d2 = NULL;
   uint8_t *coins = NULL;
 
-	kem = OQS_KEM_new(OQS_KEM_alg_classic_mceliece_348864);
+	kem = OQS_KEM_new(OQS_KEM_alg_classic_mceliece_348864f);
 	if (kem == NULL) {
-		printf("[example_heap]  OQS_KEM_alg_classic_mceliece_348864 was not enabled at "
+		printf("[example_heap]  OQS_KEM_alg_classic_mceliece_348864f was not enabled at "
 		       "compile-time.\n");
 		return OQS_ERROR;
 	}
@@ -104,7 +104,7 @@ static OQS_STATUS example_heap(void) {
 		return OQS_ERROR;
 	}
 
-	printf("[example_heap] OQS_KEM_alg_classic_mceliece_348864 operations completed.\n");
+	printf("[example_heap] OQS_KEM_alg_classic_mceliece_348864f operations completed.\n");
 	cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,
 	             ciphertext, kem, shared_secret_d2);
 

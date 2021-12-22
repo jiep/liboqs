@@ -13,7 +13,7 @@
 #include <string.h>
 
 /* output: e, an error vector of weight t */
-static void gen_e(unsigned char *e) {
+void gen_e(unsigned char *e) {
     size_t i, j;
     int eq, count;
 
@@ -128,8 +128,7 @@ static void syndrome(unsigned char *s, const unsigned char *pk, const unsigned c
     }
 }
 
-void PQCLEAN_MCELIECE348864F_VEC_encrypt(unsigned char *s, unsigned char *e, const unsigned char *pk) {
-    gen_e(e);
+void PQCLEAN_MCELIECE348864F_VEC_encrypt(unsigned char *s, const unsigned char *e, const unsigned char *pk) {
+    // gen_e(e);
     syndrome(s, pk, e);
 }
-
