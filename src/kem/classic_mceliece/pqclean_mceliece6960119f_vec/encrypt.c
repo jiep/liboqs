@@ -14,7 +14,7 @@
 #include "gf.h"
 
 /* output: e, an error vector of weight t */
-static void gen_e(unsigned char *e) {
+void gen_e_6960119f(unsigned char *e) {
     size_t i, j;
     int eq, count;
 
@@ -145,8 +145,7 @@ static void syndrome(unsigned char *s, const unsigned char *pk, const unsigned c
 
 /* input: public key pk */
 /* output: error vector e, syndrome s */
-void PQCLEAN_MCELIECE6960119F_VEC_encrypt(unsigned char *s, unsigned char *e, const unsigned char *pk) {
-    gen_e(e);
+void PQCLEAN_MCELIECE6960119F_VEC_encrypt(unsigned char *s, const unsigned char *e, const unsigned char *pk) {
+    // gen_e(e);
     syndrome(s, pk, e);
 }
-
