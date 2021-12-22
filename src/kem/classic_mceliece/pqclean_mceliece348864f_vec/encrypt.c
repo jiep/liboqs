@@ -13,7 +13,7 @@
 #include <string.h>
 
 /* output: e, an error vector of weight t */
-void gen_e(unsigned char *e) {
+void gen_e_348864f(unsigned char *e) {
     size_t i, j;
     int eq, count;
 

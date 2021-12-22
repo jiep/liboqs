@@ -6,5 +6,5 @@
 
 
 void PQCLEAN_MCELIECE348864F_VEC_encrypt(unsigned char * /*s*/, const unsigned char * /*e*/, const unsigned char * /*pk*/);
-void gen_e(unsigned char *e);
+void gen_e_348864f(unsigned char *e);
 #endif

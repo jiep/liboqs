@@ -137,5 +137,5 @@ int PQCLEAN_MCELIECE348864F_VEC_crypto_kem_keypair
 }
 
 void PQCLEAN_MCELIECE348864F_VEC_crypto_kem_gen_e(uint8_t *e) {
-  gen_e(e);
+  gen_e_348864f(e);
 }
