@@ -17,17 +17,19 @@
 int PQCLEAN_MCELIECE6688128_VEC_crypto_kem_enc(
     uint8_t *c,
     uint8_t *key,
-    const uint8_t *pk
+    const uint8_t *pk,
+    const uint8_t *coins
 ) {
     uint8_t two_e[ 1 + SYS_N / 8 ] = {2};
-    uint8_t *e = two_e + 1;
+    // uint8_t *e = two_e + 1;
     uint8_t one_ec[ 1 + SYS_N / 8 + (SYND_BYTES + 32) ] = {1};
+    memcpy(two_e + 1, coins, SYS_N / 8);
 
-    PQCLEAN_MCELIECE6688128_VEC_encrypt(c, e, pk);
+    PQCLEAN_MCELIECE6688128_VEC_encrypt(c, coins, pk);
 
     crypto_hash_32b(c + SYND_BYTES, two_e, sizeof(two_e));
 
-    memcpy(one_ec + 1, e, SYS_N / 8);
+    memcpy(one_ec + 1, coins, SYS_N / 8);
     memcpy(one_ec + 1 + SYS_N / 8, c, SYND_BYTES + 32);
 
     crypto_hash_32b(key, one_ec, sizeof(one_ec));
@@ -134,3 +136,6 @@ int PQCLEAN_MCELIECE6688128_VEC_crypto_kem_keypair
     return 0;
 }
 
+void PQCLEAN_MCELIECE6688128_VEC_crypto_kem_gen_e(uint8_t *e) {
+  gen_e_6688128(e);
+}
