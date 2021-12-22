@@ -127,10 +127,12 @@ OQS_API void OQS_KEM_classic_mceliece_8192128_gen_e(uint8_t *e);
 #define OQS_KEM_classic_mceliece_8192128f_length_secret_key 14080
 #define OQS_KEM_classic_mceliece_8192128f_length_ciphertext 240
 #define OQS_KEM_classic_mceliece_8192128f_length_shared_secret 32
+#define OQS_KEM_classic_mceliece_8192128f_length_coins 1024 // =8192/8
 OQS_KEM *OQS_KEM_classic_mceliece_8192128f_new(void);
 OQS_API OQS_STATUS OQS_KEM_classic_mceliece_8192128f_keypair(uint8_t *public_key, uint8_t *secret_key);
-OQS_API OQS_STATUS OQS_KEM_classic_mceliece_8192128f_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key);
+OQS_API OQS_STATUS OQS_KEM_classic_mceliece_8192128f_encaps(uint8_t *ciphertext, uint8_t *shared_secret, const uint8_t *public_key, const uint8_t *coins);
 OQS_API OQS_STATUS OQS_KEM_classic_mceliece_8192128f_decaps(uint8_t *shared_secret, const uint8_t *ciphertext, const uint8_t *secret_key);
+OQS_API void OQS_KEM_classic_mceliece_8192128f_gen_e(uint8_t *e);
 #endif
 
 #endif
