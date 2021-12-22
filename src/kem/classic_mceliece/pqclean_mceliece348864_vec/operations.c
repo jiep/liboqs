@@ -24,8 +24,10 @@ int PQCLEAN_MCELIECE348864_VEC_crypto_kem_enc(
     uint8_t two_e[ 1 + SYS_N / 8 ] = {2};
     // uint8_t *e = two_e + 1;
     uint8_t one_ec[ 1 + SYS_N / 8 + (SYND_BYTES + 32) ] = {1};
+    memcpy(two_e + 1, coins, SYS_N / 8);
 
     PQCLEAN_MCELIECE348864_VEC_encrypt(c, coins, pk);
+    printf("coins: %s\n", two_e);
 
     crypto_hash_32b(c + SYND_BYTES, two_e, sizeof(two_e));
 

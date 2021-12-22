@@ -17,7 +17,7 @@
 
 void cleanup_heap(uint8_t *secret_key, uint8_t *shared_secret_e,
                   uint8_t *shared_secret_d, uint8_t *public_key,
-                  uint8_t *ciphertext, OQS_KEM *kem);
+                  uint8_t *ciphertext, OQS_KEM *kem, uint8_t *shared_secret_d2);
 
 void print_hex(const uint8_t *bytes, size_t length) {
   for(size_t i = 0; i < length; i++){
@@ -42,7 +42,8 @@ static OQS_STATUS example_heap(void) {
   uint8_t *ciphertext = NULL;
   uint8_t *ciphertext2 = NULL;
 	uint8_t *shared_secret_e = NULL;
-	uint8_t *shared_secret_d = NULL;
+  uint8_t *shared_secret_d = NULL;
+  uint8_t *shared_secret_d2 = NULL;
   uint8_t *coins = NULL;
 
 	kem = OQS_KEM_new(OQS_KEM_alg_classic_mceliece_348864);
@@ -58,12 +59,13 @@ static OQS_STATUS example_heap(void) {
   ciphertext2 = malloc(kem->length_ciphertext);
 	shared_secret_e = malloc(kem->length_shared_secret);
 	shared_secret_d = malloc(kem->length_shared_secret);
+  shared_secret_d2 = malloc(kem->length_shared_secret);
   coins = malloc(kem->length_coins);
 	if ((public_key == NULL) || (secret_key == NULL) || (ciphertext == NULL) ||
-	        (shared_secret_e == NULL) || (shared_secret_d == NULL)) {
+	        (shared_secret_e == NULL) || (shared_secret_d == NULL) || (shared_secret_d2 == NULL)) {
 		fprintf(stderr, "ERROR: malloc failed!\n");
 		cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,
-		             ciphertext, kem);
+		             ciphertext, kem, shared_secret_d2);
 
     free(coins);
 		return OQS_ERROR;
@@ -73,7 +75,7 @@ static OQS_STATUS example_heap(void) {
 	if (rc != OQS_SUCCESS) {
 		fprintf(stderr, "ERROR: OQS_KEM_keypair failed!\n");
 		cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,
-		             ciphertext, kem);
+		             ciphertext, kem, shared_secret_d2);
 
 		return OQS_ERROR;
 	}
@@ -81,30 +83,30 @@ static OQS_STATUS example_heap(void) {
   printf("coins: ");
   print_hex(coins, kem->length_coins);
   rc = OQS_KEM_encaps(kem, ciphertext, shared_secret_e, public_key, coins);
-  rc = OQS_KEM_encaps(kem, ciphertext2, shared_secret_e, public_key, coins);
+  rc = OQS_KEM_encaps(kem, ciphertext2, shared_secret_d, public_key, coins);
   printf("ciphertext:  ");
-  print_hex(ciphertext, kem->length_shared_secret);
+  print_hex(ciphertext, kem->length_ciphertext);
   printf("ciphertext2: ");
-  print_hex(ciphertext2, kem->length_shared_secret);
+  print_hex(ciphertext2, kem->length_ciphertext);
 	if (rc != OQS_SUCCESS) {
 		fprintf(stderr, "ERROR: OQS_KEM_encaps failed!\n");
 		cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,
-		             ciphertext, kem);
+		             ciphertext, kem, shared_secret_d2);
 
 		return OQS_ERROR;
 	}
-	rc = OQS_KEM_decaps(kem, shared_secret_d, ciphertext, secret_key);
-	if (rc != OQS_SUCCESS) {
+	rc = OQS_KEM_decaps(kem, shared_secret_d2, ciphertext, secret_key);
+	if (rc != OQS_SUCCESS || memcmp(shared_secret_d, shared_secret_d2, kem->length_shared_secret) != 0) {
 		fprintf(stderr, "ERROR: OQS_KEM_decaps failed!\n");
 		cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,
-		             ciphertext, kem);
+		             ciphertext, kem, shared_secret_d2);
 
 		return OQS_ERROR;
 	}
 
 	printf("[example_heap] OQS_KEM_alg_classic_mceliece_348864 operations completed.\n");
 	cleanup_heap(secret_key, shared_secret_e, shared_secret_d, public_key,
-	             ciphertext, kem);
+	             ciphertext, kem, shared_secret_d2);
 
 	return OQS_SUCCESS; // success
 }
@@ -119,11 +121,12 @@ int main(void) {
 
 void cleanup_heap(uint8_t *secret_key, uint8_t *shared_secret_e,
                   uint8_t *shared_secret_d, uint8_t *public_key,
-                  uint8_t *ciphertext, OQS_KEM *kem) {
+                  uint8_t *ciphertext, OQS_KEM *kem, uint8_t *shared_secret_d2) {
 	if (kem != NULL) {
 		OQS_MEM_secure_free(secret_key, kem->length_secret_key);
 		OQS_MEM_secure_free(shared_secret_e, kem->length_shared_secret);
-		OQS_MEM_secure_free(shared_secret_d, kem->length_shared_secret);
+    OQS_MEM_secure_free(shared_secret_d, kem->length_shared_secret);
+    OQS_MEM_secure_free(shared_secret_d2, kem->length_shared_secret);
 	}
 	OQS_MEM_insecure_free(public_key);
 	OQS_MEM_insecure_free(ciphertext);

@@ -16,7 +16,6 @@
 void gen_e(unsigned char *e) {
     size_t i, j;
     int eq, count;
-
     uint16_t ind_[ SYS_T * 2 ];
     uint8_t *ind_8 = (uint8_t *)ind_;
     uint16_t ind[ SYS_T * 2 ];
