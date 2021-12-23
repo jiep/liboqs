@@ -18,10 +18,10 @@
 
 /* input: public key pk, error vector e */
 /* output: syndrome s */
-extern void PQCLEAN_MCELIECE6688128F_AVX_syndrome_asm(unsigned char *s, const unsigned char *pk, unsigned char *e);
+extern void PQCLEAN_MCELIECE6688128F_AVX_syndrome_asm(unsigned char *s, const unsigned char *pk, const unsigned char *e);
 
 /* output: e, an error vector of weight t */
-static void gen_e(unsigned char *e) {
+void gen_e_6688128f_avx(unsigned char *e) {
     int i, j, eq, count;
 
     uint16_t ind[ SYS_T * 2 ];
@@ -96,9 +96,7 @@ static void gen_e(unsigned char *e) {
 
 /* input: public key pk */
 /* output: error vector e, syndrome s */
-void PQCLEAN_MCELIECE6688128F_AVX_encrypt(unsigned char *s, unsigned char *e, const unsigned char *pk) {
-    gen_e(e);
-
+void PQCLEAN_MCELIECE6688128F_AVX_encrypt(unsigned char *s, const unsigned char *e, const unsigned char *pk) {
+    // gen_e(e);
     PQCLEAN_MCELIECE6688128F_AVX_syndrome_asm(s, pk, e);
 }
-
