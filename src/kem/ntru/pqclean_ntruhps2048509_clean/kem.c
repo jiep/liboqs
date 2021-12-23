@@ -16,7 +16,6 @@ int PQCLEAN_NTRUHPS2048509_CLEAN_crypto_kem_keypair(uint8_t *pk, uint8_t *sk) {
 
     randombytes(seed, NTRU_SAMPLE_FG_BYTES);
     PQCLEAN_NTRUHPS2048509_CLEAN_owcpa_keypair(pk, sk, seed);
-    printf("NTRU_SAMPLE_RM_BYTES: %d\n", NTRU_SAMPLE_RM_BYTES);
 
     randombytes(sk + NTRU_OWCPA_SECRETKEYBYTES, NTRU_PRFKEYBYTES);
 

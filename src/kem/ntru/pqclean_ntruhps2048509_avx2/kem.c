@@ -28,7 +28,6 @@ int PQCLEAN_NTRUHPS2048509_AVX2_crypto_kem_enc(uint8_t *c, uint8_t *k, const uin
     uint8_t rm_seed[NTRU_SAMPLE_RM_BYTES];
 
     memcpy(rm_seed, coins, NTRU_SAMPLE_RM_BYTES);
-    printf("NTRU_SAMPLE_RM_BYTES: %d\n", NTRU_SAMPLE_RM_BYTES);
 
     PQCLEAN_NTRUHPS2048509_AVX2_sample_rm(&r, &m, rm_seed);
 
