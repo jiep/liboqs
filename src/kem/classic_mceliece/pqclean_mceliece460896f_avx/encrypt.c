@@ -21,7 +21,7 @@
 extern void PQCLEAN_MCELIECE460896F_AVX_syndrome_asm(unsigned char *s, const unsigned char *pk, const unsigned char *e);
 
 /* output: e, an error vector of weight t */
-void gen_e_60896f_avx(unsigned char *e) {
+void gen_e_460896f_avx(unsigned char *e) {
     int i, j, eq, count;
 
     uint16_t ind[ SYS_T * 2 ];

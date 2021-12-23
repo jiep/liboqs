@@ -6,5 +6,5 @@
 
 
 void PQCLEAN_MCELIECE460896F_AVX_encrypt(unsigned char * /*s*/, const unsigned char * /*e*/, const unsigned char * /*pk*/);
-void gen_e_60896f_avx(unsigned char *e);
+void gen_e_460896f_avx(unsigned char *e);
 #endif
