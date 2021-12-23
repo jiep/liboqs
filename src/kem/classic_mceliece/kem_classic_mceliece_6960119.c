@@ -66,8 +66,7 @@ OQS_API OQS_STATUS OQS_KEM_classic_mceliece_6960119_encaps(uint8_t *ciphertext, 
 #if defined(OQS_DIST_BUILD)
 	if (OQS_CPU_has_extension(OQS_CPU_EXT_AVX2) && OQS_CPU_has_extension(OQS_CPU_EXT_POPCNT)) {
 #endif /* OQS_DIST_BUILD */
-		// Todo: Fix
-		return (OQS_STATUS) PQCLEAN_MCELIECE6960119_VEC_crypto_kem_enc(ciphertext, shared_secret, public_key, coins);
+		return (OQS_STATUS) PQCLEAN_MCELIECE6960119_AVX_crypto_kem_enc(ciphertext, shared_secret, public_key, coins);
 #if defined(OQS_DIST_BUILD)
 	} else {
 		return (OQS_STATUS) PQCLEAN_MCELIECE6960119_VEC_crypto_kem_enc(ciphertext, shared_secret, public_key, coins);
@@ -95,7 +94,19 @@ OQS_API OQS_STATUS OQS_KEM_classic_mceliece_6960119_decaps(uint8_t *shared_secre
 }
 
 OQS_API void OQS_KEM_classic_mceliece_6960119_gen_e(uint8_t *e) {
+#if defined(OQS_ENABLE_KEM_classic_mceliece_6960119_avx)
+#if defined(OQS_DIST_BUILD)
+	if (OQS_CPU_has_extension(OQS_CPU_EXT_AVX2) && OQS_CPU_has_extension(OQS_CPU_EXT_POPCNT)) {
+#endif /* OQS_DIST_BUILD */
+		PQCLEAN_MCELIECE6960119_AVX_crypto_kem_gen_e(e);
+#if defined(OQS_DIST_BUILD)
+	} else {
+		PQCLEAN_MCELIECE6960119_VEC_crypto_kem_gen_e(e);
+	}
+#endif /* OQS_DIST_BUILD */
+#else
 	PQCLEAN_MCELIECE6960119_VEC_crypto_kem_gen_e(e);
+#endif
 }
 
 #endif
