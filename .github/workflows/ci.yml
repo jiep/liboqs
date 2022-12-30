@@ -3,13 +3,12 @@ on: [push]
 name: ci
 
 jobs:
-  build_and_test:
+  build:
     name: Build binary
     runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
-      matrix:
-        - ubuntu-22.04
+      runs-os: ubuntu-22.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
